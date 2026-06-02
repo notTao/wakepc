@@ -34,19 +34,20 @@ function setupTailscale() {
   console.log('🔒 Instalando Tailscale...');
 
   const installCmd = `
-    curl -fsSL https://tailscale.com/install.sh | sh &&
+    apt-get update -qq &&
+    apt-get install -y -qq tailscale &&
     tailscaled --tun=userspace-networking --socks5-server=localhost:1055 &
     sleep 3 &&
     tailscale up --authkey=${TAILSCALE_AUTHKEY} --hostname=wakepc-server --accept-routes
   `;
 
-  exec(installCmd, (err, stdout, stderr) => {
+  exec(installCmd, { timeout: 120000 }, (err, stdout, stderr) => {
     if (err) {
       console.error('❌ Tailscale error:', err.message);
       return;
     }
     console.log('✅ Tailscale conectado');
-    if (stdout) console.log('Tailscale stdout:', stdout);
+    if (stdout) console.log('Tailscale:', stdout.slice(0, 200));
   });
 }
 
