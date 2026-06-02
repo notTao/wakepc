@@ -16,6 +16,8 @@ const { Client } = require('ssh2');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET = process.env.WOL_SECRET || 'cambia_esta_clave';
+console.log('ENV CHECK:', process.env.WOL_SECRET ? 'WOL_SECRET ok' : 'WOL_SECRET MISSING');
+console.log('ENV CHECK:', process.env.SSH_HOST ? 'SSH_HOST ok' : 'SSH_HOST MISSING');
 const SSH_HOST = process.env.SSH_HOST;
 const SSH_USER = process.env.SSH_USER;
 const SSH_PRIVATE_KEY = process.env.SSH_PRIVATE_KEY;
