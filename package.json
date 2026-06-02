@@ -1,6 +1,6 @@
 {
   "name": "wakepc-server",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Backend WakePC - WoL + SSH shutdown via Tailscale",
   "main": "server.js",
   "scripts": {

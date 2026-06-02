@@ -35,9 +35,13 @@ function setupTailscale() {
 
   const installCmd = `
     apt-get update -qq &&
+    apt-get install -y -qq apt-transport-https ca-certificates wget &&
+    wget -qO /usr/share/keyrings/tailscale-archive-keyring.gpg https://pkgs.tailscale.com/stable/debian/bookworm.gpg &&
+    echo 'deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/debian bookworm main' > /etc/apt/sources.list.d/tailscale.list &&
+    apt-get update -qq &&
     apt-get install -y -qq tailscale &&
     tailscaled --tun=userspace-networking --socks5-server=localhost:1055 &
-    sleep 3 &&
+    sleep 5 &&
     tailscale up --authkey=${TAILSCALE_AUTHKEY} --hostname=wakepc-server --accept-routes
   `;
 
